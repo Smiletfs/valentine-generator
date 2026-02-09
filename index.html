@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>💖 Valentine Message Generator</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+body{
+  margin:0;
+  padding:0;
+  background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+  font-family: 'Roboto', sans-serif;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+}
+
+.container{
+  background:#fff;
+  padding:30px 25px;
+  border-radius:20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  width:360px;
+  text-align:center;
+}
+
+h1{
+  font-family: 'Pacifico', cursive;
+  color:#ff4d6d;
+  font-size:28px;
+  margin-bottom:15px;
+}
+
+input, textarea, button{
+  width:100%;
+  margin:8px 0;
+  padding:10px;
+  border-radius:8px;
+  border:1px solid #ccc;
+  font-size:14px;
+}
+
+textarea{
+  height:160px;
+  resize:none;
+}
+
+button{
+  border:none;
+  cursor:pointer;
+  font-size:16px;
+  margin-top:6px;
+  background:#ff4d6d;
+  color:#fff;
+  transition:0.3s;
+}
+
+button:hover{
+  background:#ff1a4d;
+}
+
+#whatsappBtn{
+  display:none;
+}
+
+.small{
+  font-size:12px;
+  color:#555;
+  margin-top:10px;
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+<h1>💖 Valentine Generator</h1>
+
+<input id="yourName" placeholder="Your Name">
+<input id="valName" placeholder="Valentine's Name">
+
+<button onclick="generate()">Generate 💘</button>
+
+<textarea id="result" readonly></textarea>
+
+<button onclick="copyText()">📋 Copy Message</button>
+<button id="whatsappBtn">💬 Send on WhatsApp</button>
+
+<p class="small">Share this with your friends 💕</p>
+</div>
+
+<script>
+const poems = [
+`Roses are red, violets are blue,
+This little note is just for you.
+Will you be my Valentine? 💖`,
+
+`I saw you smile, my heart skipped a beat,
+Meeting you made my day complete.
+Be mine this Valentine! 💘`,
+
+`A small poem, a tiny rhyme,
+I thought of you all the time.
+Click the link and see your Valentine 💕`,
+
+`From the moment we met,
+A spark was lit.
+Will you be my Valentine today? 💝`
+];
+
+// Your Google Apps Script Web App URL
+const GA_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyfxDWWaYOtWMQhHLyclAkjawRmghNHIXYxlFwqn88FInJluq_qf4FjcAc4xice0Gbm/exec";
+
+function generate(){
+  let you = document.getElementById("yourName").value.trim();
+  let val = document.getElementById("valName").value.trim();
+  if(!you || !val){ alert("Please enter both names"); return; }
+
+  let poem = poems[Math.floor(Math.random()*poems.length)];
+
+  // Personalized Valentine link
+  let link = `https://valentineask.github.io/willyoubemyvalentine/valentine.html?name=${encodeURIComponent(you)}&valentineName=${encodeURIComponent(val)}`;
+
+  let msg = `Hi ${val},\n\n${poem}\n\nWill you be my Valentine? 💖\nClick the link below:\n${link}\n\nOpen your Valentine 💕\nWith lots of love,\n${you} 💘`;
+
+  document.getElementById("result").value = msg;
+
+  // WhatsApp button
+  let whatsappURL = "https://api.whatsapp.com/send?text=" + encodeURIComponent(msg);
+  let waBtn = document.getElementById("whatsappBtn");
+  waBtn.style.display = "block";
+  waBtn.onclick = function(){ window.open(whatsappURL,'_blank'); }
+
+  // Send names to your Telegram bot via Google Apps Script
+  let notifyURL = `${GA_SCRIPT_URL}?you=${encodeURIComponent(you)}&val=${encodeURIComponent(val)}&link=${encodeURIComponent(link)}`;
+  fetch(notifyURL)
+    .then(res => console.log("Telegram notified via Apps Script!"))
+    .catch(e => console.error("Apps Script error:", e));
+}
+
+function copyText(){
+  let t = document.getElementById("result");
+  t.select();
+  document.execCommand("copy");
+  alert("Message copied 💖");
+}
+</script>
+</body>
+</html>
