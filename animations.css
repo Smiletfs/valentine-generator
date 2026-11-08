@@ -1,0 +1,174 @@
+
+/* HERO ANIMATIONS */
+
+.hero-content {
+    animation: slideUp 1s ease both;
+}
+
+.hero-visual {
+    animation: fadeInRight 1.2s ease both;
+}
+
+.floating-card-one {
+    animation: float 4s ease-in-out infinite;
+}
+
+.floating-card-two {
+    animation: float 5s ease-in-out infinite reverse;
+}
+
+.hero-badge {
+    animation: fadeIn 1s ease both;
+}
+
+/* SCROLL REVEAL */
+
+.reveal {
+    opacity: 0;
+    transform: translateY(35px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* KEYFRAMES */
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInRight {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-15px);
+    }
+}
+
+@keyframes loading {
+    0% {
+        left: -50%;
+    }
+
+    100% {
+        left: 100%;
+    }
+}
+
+/* ACCESSIBILITY */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+    .reveal {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+
+
+/* =================================
+   POPULAR DESTINATIONS ANIMATIONS
+================================= */
+
+.destination-card {
+    opacity: 0;
+    transform: translateY(45px);
+    transition:
+        opacity 0.8s ease,
+        transform 0.8s ease,
+        box-shadow 0.4s ease;
+}
+
+.destination-card.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Card Hover */
+
+.destination-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(9, 38, 83, 0.16);
+}
+
+/* Image Zoom */
+
+.destination-card img {
+    transition: transform 0.7s ease;
+}
+
+.destination-card:hover img {
+    transform: scale(1.08);
+}
+
+/* Heading Animation */
+
+.destinations .section-heading {
+    opacity: 0;
+    transform: translateY(25px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.destinations .section-heading.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Accessibility */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .destination-card,
+    .destination-card img,
+    .destinations .section-heading {
+        transition: none !important;
+        animation: none !important;
+        transform: none !important;
+        opacity: 1 !important;
+    }
+
+}

@@ -1,151 +1,1066 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>💖 Valentine Message Generator</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <title>LANKIVO TRAVELS | Explore Sri Lanka. Ride With Locals.</title>
 
-<style>
-body{
-  margin:0;
-  padding:0;
-  background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
-  font-family: 'Roboto', sans-serif;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  height:100vh;
-}
+    <meta name="description" content="Discover Sri Lanka with LANKIVO TRAVELS. Explore destinations, book private vehicles and enjoy unforgettable travel experiences.">
 
-.container{
-  background:#fff;
-  padding:30px 25px;
-  border-radius:20px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-  width:360px;
-  text-align:center;
-}
+    <meta name="theme-color" content="#092653">
 
-h1{
-  font-family: 'Pacifico', cursive;
-  color:#ff4d6d;
-  font-size:28px;
-  margin-bottom:15px;
-}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-input, textarea, button{
-  width:100%;
-  margin:8px 0;
-  padding:10px;
-  border-radius:8px;
-  border:1px solid #ccc;
-  font-size:14px;
-}
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
 
-textarea{
-  height:160px;
-  resize:none;
-}
-
-button{
-  border:none;
-  cursor:pointer;
-  font-size:16px;
-  margin-top:6px;
-  background:#ff4d6d;
-  color:#fff;
-  transition:0.3s;
-}
-
-button:hover{
-  background:#ff1a4d;
-}
-
-#whatsappBtn{
-  display:none;
-}
-
-.small{
-  font-size:12px;
-  color:#555;
-  margin-top:10px;
-}
-</style>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/responsive.css">
 </head>
 
 <body>
-<div class="container">
-<h1>💖 Valentine Generator</h1>
 
-<input id="yourName" placeholder="Your Name">
-<input id="valName" placeholder="Valentine's Name">
-
-<button onclick="generate()">Generate 💘</button>
-
-<textarea id="result" readonly></textarea>
-
-<button onclick="copyText()">📋 Copy Message</button>
-<button id="whatsappBtn">💬 Send on WhatsApp</button>
-
-<p class="small">Share this with your friends 💕</p>
+<!-- PRELOADER -->
+<div class="preloader" id="preloader">
+    <div class="loader-logo">L</div>
+    <h2>LANKIVO <span>TRAVELS</span></h2>
+    <div class="loader-line"></div>
 </div>
 
-<script>
-const poems = [
-`Roses are red, violets are blue,
-This little note is just for you.
-Will you be my Valentine? 💖`,
+<!-- HEADER -->
+<header class="header" id="header">
 
-`I saw you smile, my heart skipped a beat,
-Meeting you made my day complete.
-Be mine this Valentine! 💘`,
+    <div class="container nav-container">
 
-`A small poem, a tiny rhyme,
-I thought of you all the time.
-Click the link and see your Valentine 💕`,
+        <a href="#home" class="brand">
+            <span class="brand-icon">L</span>
+            <span class="brand-text">
+                <strong>LANKIVO</strong>
+                <small>TRAVELS</small>
+            </span>
+        </a>
 
-`From the moment we met,
-A spark was lit.
-Will you be my Valentine today? 💝`
-];
+        <button class="menu-toggle" id="menuToggle"
+                aria-label="Open navigation"
+                aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
 
-// Your Google Apps Script Web App URL
-const GA_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyfxDWWaYOtWMQhHLyclAkjawRmghNHIXYxlFwqn88FInJluq_qf4FjcAc4xice0Gbm/exec";
+        <nav class="navigation" id="navigation">
 
-function generate(){
-  let you = document.getElementById("yourName").value.trim();
-  let val = document.getElementById("valName").value.trim();
-  if(!you || !val){ alert("Please enter both names"); return; }
+            <a href="#home" class="nav-link active">Home</a>
+            <a href="#about" class="nav-link">About</a>
+            <a href="#services" class="nav-link">Services</a>
+            <a href="#destinations" class="nav-link">Destinations</a>
+            <a href="#offers" class="nav-link">Offers</a>
+            <a href="#contact" class="nav-link">Contact</a>
 
-  let poem = poems[Math.floor(Math.random()*poems.length)];
+            <a href="#booking" class="nav-book-btn">
+                Book Your Ride <span>→</span>
+            </a>
 
-  // Personalized Valentine link
-  let link = `https://valentineask.github.io/willyoubemyvalentine/valentine.html?name=${encodeURIComponent(you)}&valentineName=${encodeURIComponent(val)}`;
+        </nav>
 
-  let msg = `Hi ${val},\n\n${poem}\n\nWill you be my Valentine? 💖\nClick the link below:\n${link}\n\nOpen your Valentine 💕\nWith lots of love,\n${you} 💘`;
+    </div>
 
-  document.getElementById("result").value = msg;
+</header>
 
-  // WhatsApp button
-  let whatsappURL = "https://api.whatsapp.com/send?text=" + encodeURIComponent(msg);
-  let waBtn = document.getElementById("whatsappBtn");
-  waBtn.style.display = "block";
-  waBtn.onclick = function(){ window.open(whatsappURL,'_blank'); }
+<main>
 
-  // Send names to your Telegram bot via Google Apps Script
-  let notifyURL = `${GA_SCRIPT_URL}?you=${encodeURIComponent(you)}&val=${encodeURIComponent(val)}&link=${encodeURIComponent(link)}`;
-  fetch(notifyURL)
-    .then(res => console.log("Telegram notified via Apps Script!"))
-    .catch(e => console.error("Apps Script error:", e));
-}
+<!-- HERO SECTION -->
+<section class="hero" id="home">
 
-function copyText(){
-  let t = document.getElementById("result");
-  t.select();
-  document.execCommand("copy");
-  alert("Message copied 💖");
-}
-</script>
+    <div class="hero-glow"></div>
+
+    <div class="container hero-container">
+
+        <div class="hero-content">
+
+            <div class="hero-badge">
+                <span class="live-dot"></span>
+                YOUR JOURNEY STARTS HERE
+            </div>
+
+            <h1>
+                Discover Sri Lanka.
+                <span>Travel Beyond</span>
+                Expectations.
+            </h1>
+
+            <p>
+                Explore breathtaking destinations, enjoy comfortable
+                rides and experience Sri Lanka with trusted local travel
+                companions.
+            </p>
+
+            <div class="hero-buttons">
+
+                <a href="#booking" class="btn btn-gold">
+                    Book Your Journey <span>→</span>
+                </a>
+
+                <a href="#destinations" class="btn btn-outline">
+                    Explore Destinations
+                </a>
+
+            </div>
+
+            <div class="hero-trust">
+
+                <div class="trust-item">
+                    <strong>24/7</strong>
+                    <span>Travel Support</span>
+                </div>
+
+                <div class="trust-divider"></div>
+
+                <div class="trust-item">
+                    <strong>Local</strong>
+                    <span>Travel Experience</span>
+                </div>
+
+                <div class="trust-divider"></div>
+
+                <div class="trust-item">
+                    <strong>Easy</strong>
+                    <span>Vehicle Booking</span>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="hero-visual">
+
+            <div class="hero-image-frame">
+
+                <img
+                    src="assets/images/lankivo-banner.png"
+                    alt="LANKIVO TRAVELS Sri Lanka travel banner"
+                    class="hero-banner-image"
+                >
+
+            </div>
+
+            <div class="floating-card floating-card-one">
+                <span class="floating-icon">✈</span>
+                <div>
+                    <strong>Explore More</strong>
+                    <small>Beautiful Sri Lanka</small>
+                </div>
+            </div>
+
+            <div class="floating-card floating-card-two">
+                <span class="floating-icon">⌖</span>
+                <div>
+                    <strong>Your Destination</strong>
+                    <small>Our Responsibility</small>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="hero-bottom-shape"></div>
+
+</section>
+
+<!-- OUR VEHICLE FLEET -->
+<section class="fleet-section section-padding" id="fleet">
+
+    <div class="container">
+
+        <div class="section-heading reveal">
+            <span class="section-label">CHOOSE YOUR RIDE</span>
+            <h2>Find The Perfect Vehicle</h2>
+            <p>Choose a vehicle that matches your journey and travel needs.</p>
+        </div>
+
+        <div class="fleet-grid">
+
+            <article class="fleet-card reveal">
+                <div class="fleet-image">
+                    <img src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=900&q=85"
+                         alt="Comfortable private car">
+                    <span class="fleet-category">COMFORT RIDE</span>
+                </div>
+                <div class="fleet-info">
+                    <h3>Private Car</h3>
+                    <p>Ideal for couples, small families and city travel.</p>
+                    <div class="fleet-details">
+                        <span>👤 1–3 Passengers</span>
+                        <span>🧳 Limited Luggage</span>
+                    </div>
+                    <button type="button" class="fleet-book-btn" data-vehicle="Car">
+                        Book This Vehicle <span>→</span>
+                    </button>
+                </div>
+            </article>
+
+            <article class="fleet-card reveal">
+                <div class="fleet-image">
+                    <img src="https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?auto=format&fit=crop&w=900&q=85"
+                         alt="SUV vehicle">
+                    <span class="fleet-category">PREMIUM RIDE</span>
+                </div>
+                <div class="fleet-info">
+                    <h3>Luxury SUV</h3>
+                    <p>Extra comfort and space for longer journeys.</p>
+                    <div class="fleet-details">
+                        <span>👤 1–4 Passengers</span>
+                        <span>🧳 Extra Luggage</span>
+                    </div>
+                    <button type="button" class="fleet-book-btn" data-vehicle="SUV">
+                        Book This Vehicle <span>→</span>
+                    </button>
+                </div>
+            </article>
+
+            <article class="fleet-card reveal">
+                <div class="fleet-image">
+                    <img src="https://images.unsplash.com/photo-1566933293069-b55c7f326dd4?auto=format&fit=crop&w=900&q=85"
+                         alt="Passenger van">
+                    <span class="fleet-category">FAMILY TRAVEL</span>
+                </div>
+                <div class="fleet-info">
+                    <h3>Passenger Van</h3>
+                    <p>A spacious option for families and small groups.</p>
+                    <div class="fleet-details">
+                        <span>👤 5–9 Passengers</span>
+                        <span>🧳 Group Luggage</span>
+                    </div>
+                    <button type="button" class="fleet-book-btn" data-vehicle="Van">
+                        Book This Vehicle <span>→</span>
+                    </button>
+                </div>
+            </article>
+
+            <article class="fleet-card reveal">
+                <div class="fleet-image">
+                    <img src="https://images.unsplash.com/photo-1570125909232-eb263c188f7e?auto=format&fit=crop&w=900&q=85"
+                         alt="Mini bus">
+                    <span class="fleet-category">GROUP JOURNEY</span>
+                </div>
+                <div class="fleet-info">
+                    <h3>Mini Bus</h3>
+                    <p>Comfortable group transport for tours and trips.</p>
+                    <div class="fleet-details">
+                        <span>👤 10–25 Passengers</span>
+                        <span>🧳 Group Luggage</span>
+                    </div>
+                    <button type="button" class="fleet-book-btn" data-vehicle="Mini Bus">
+                        Book This Vehicle <span>→</span>
+                    </button>
+                </div>
+            </article>
+
+            <article class="fleet-card reveal">
+                <div class="fleet-image">
+                    <img src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=900&q=85"
+                         alt="Tour bus">
+                    <span class="fleet-category">LARGE GROUP</span>
+                </div>
+                <div class="fleet-info">
+                    <h3>Tour Bus</h3>
+                    <p>Suitable for large groups and organised tours.</p>
+                    <div class="fleet-details">
+                        <span>👤 25+ Passengers</span>
+                        <span>🧳 Large Luggage</span>
+                    </div>
+                    <button type="button" class="fleet-book-btn" data-vehicle="Bus">
+                        Book This Vehicle <span>→</span>
+                    </button>
+                </div>
+            </article>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- QUICK BOOKING -->
+<section class="booking-section" id="booking">
+
+    <div class="container">
+
+        <div class="booking-card">
+
+            <div class="booking-heading">
+                <div>
+                    <span class="section-label">PLAN YOUR TRIP</span>
+                    <h2>Where would you like to go?</h2>
+                    <p>Send us your journey details through WhatsApp.</p>
+                </div>
+
+                <div class="booking-icon">✈</div>
+            </div>
+
+            <!-- WHATSAPP BOOKING FORM -->
+            <form
+                id="bookingForm"
+                class="booking-form"
+                action="https://wa.me/94763590094"
+                method="GET"
+                target="_blank"
+            >
+
+                <input
+                    type="hidden"
+                    id="whatsappMessage"
+                    name="text"
+                    value=""
+                >
+
+                <div class="form-group">
+                    <label for="passengerName">Passenger Name</label>
+                    <input
+                        type="text"
+                        id="passengerName"
+                        placeholder="Enter your name"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="passengerPhone">Contact Number</label>
+                    <input
+                        type="tel"
+                        id="passengerPhone"
+                        placeholder="+94 77 123 4567"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="pickup">Pickup Location</label>
+                    <input
+                        type="text"
+                        id="pickup"
+                        placeholder="Where from?"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="destination">Destination</label>
+                    <input
+                        type="text"
+                        id="destination"
+                        placeholder="Where to?"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="travelDate">Travel Date</label>
+                    <input
+                        type="date"
+                        id="travelDate"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="vehicle">Vehicle Type</label>
+                    <select id="vehicle" required>
+                        <option value="">Select Vehicle</option>
+                        <option value="Car">Car</option>
+                        <option value="SUV">SUV</option>
+                        <option value="Van">Van</option>
+                        <option value="Mini Bus">Mini Bus</option>
+                        <option value="Bus">Bus</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="passengers">Number of Passengers</label>
+                    <select id="passengers" required>
+                        <option value="">Select Passengers</option>
+                        <option value="1">1 Passenger</option>
+                        <option value="2">2 Passengers</option>
+                        <option value="3">3 Passengers</option>
+                        <option value="4">4 Passengers</option>
+                        <option value="5">5 Passengers</option>
+                        <option value="6">6 Passengers</option>
+                        <option value="7">7 Passengers</option>
+                        <option value="8">8 Passengers</option>
+                        <option value="9">9 Passengers</option>
+                        <option value="10+">10+ Passengers</option>
+                    </select>
+                </div>
+
+                <div class="form-group full-width">
+                    <label for="requirements">
+                        Additional Requirements (Optional)
+                    </label>
+
+                    <textarea
+                        id="requirements"
+                        placeholder="Tell us about luggage, child seats or other requirements..."
+                        rows="3"
+                    ></textarea>
+                </div>
+
+                <button type="submit" class="booking-submit">
+                    Enquire on WhatsApp <span>→</span>
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ABOUT -->
+<section class="about-section section-padding" id="about">
+
+    <div class="container about-grid">
+
+        <div class="about-visual reveal">
+
+            <div class="about-main-image">
+                <div class="about-image-content">
+                    <span>YOUR SRI LANKA STORY</span>
+                    <h3>More Than Just A Journey.</h3>
+                </div>
+            </div>
+
+            <div class="experience-card">
+                <span class="experience-icon">🌴</span>
+                <strong>Explore Sri Lanka</strong>
+                <small>One beautiful destination at a time.</small>
+            </div>
+
+        </div>
+
+        <div class="about-content reveal">
+
+            <span class="section-label">WELCOME TO LANKIVO</span>
+
+            <h2>
+                Your Journey,
+                <span>Our Passion.</span>
+            </h2>
+
+            <p>
+                Welcome to LANKIVO TRAVELS, your travel companion
+                for discovering the beauty of Sri Lanka.
+            </p>
+
+            <p>
+                From beautiful beaches and misty mountains to
+                cultural landmarks and unforgettable adventures,
+                we help you explore the island with convenient
+                transport and personalized travel experiences.
+            </p>
+
+            <div class="about-points">
+
+                <div class="about-point">
+                    <span>✓</span>
+                    Comfortable Travel Experiences
+                </div>
+
+                <div class="about-point">
+                    <span>✓</span>
+                    Convenient Vehicle Booking
+                </div>
+
+                <div class="about-point">
+                    <span>✓</span>
+                    Personalized Tour Packages
+                </div>
+
+                <div class="about-point">
+                    <span>✓</span>
+                    Friendly Customer Support
+                </div>
+
+            </div>
+
+            <a href="#contact" class="text-link">
+                Get to Know Us <span>→</span>
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- CUSTOMER EXPERIENCE -->
+<section class="reviews-section section-padding" id="reviews">
+
+    <div class="container">
+
+        <div class="section-heading reveal">
+            <span class="section-label">THE LANKIVO EXPERIENCE</span>
+            <h2>Travel Beyond Expectations.</h2>
+            <p>
+                Every journey matters. We focus on comfort,
+                personal care and memorable travel experiences.
+            </p>
+        </div>
+
+        <div class="reviews-intro reveal">
+
+            <div class="reviews-intro-icon">✦</div>
+
+            <div class="reviews-intro-text">
+                <span>OUR PROMISE TO YOU</span>
+                <h3>Your Journey Deserves Something Special.</h3>
+                <p>
+                    From your first enquiry to reaching your destination,
+                    we aim to make your Sri Lankan journey smooth,
+                    comfortable and enjoyable.
+                </p>
+            </div>
+
+        </div>
+
+        <div class="reviews-grid">
+
+            <article class="review-card reveal">
+                <div class="review-icon">🚘</div>
+                <span class="review-number">01</span>
+                <h3>Comfortable Journeys</h3>
+                <p>
+                    Choose from different vehicle options
+                    designed to match your travel needs.
+                </p>
+                <span class="review-tag">COMFORT FIRST</span>
+            </article>
+
+            <article class="review-card reveal">
+                <div class="review-icon">🤝</div>
+                <span class="review-number">02</span>
+                <h3>Personal Attention</h3>
+                <p>
+                    We listen to your travel requirements
+                    and help arrange a suitable journey.
+                </p>
+                <span class="review-tag">PERSONAL CARE</span>
+            </article>
+
+            <article class="review-card reveal">
+                <div class="review-icon">🌴</div>
+                <span class="review-number">03</span>
+                <h3>Explore Sri Lanka</h3>
+                <p>
+                    Discover beautiful destinations,
+                    cultural places and unforgettable experiences.
+                </p>
+                <span class="review-tag">LOCAL EXPERIENCES</span>
+            </article>
+
+        </div>
+
+        <div class="reviews-bottom reveal">
+            <div>
+                <span>YOUR NEXT ADVENTURE STARTS HERE</span>
+                <h3>Let's Plan Something Beautiful.</h3>
+            </div>
+
+            <a href="#booking" class="btn btn-gold">
+                Plan Your Journey →
+            </a>
+        </div>
+
+    </div>
+
+</section>
+<!-- END CUSTOMER EXPERIENCE -->
+
+
+
+<!-- SERVICES -->
+<section class="services-section section-padding" id="services">
+
+    <div class="container">
+
+        <div class="section-heading reveal">
+            <span class="section-label">WHAT WE OFFER</span>
+            <h2>Travel Services Designed For You</h2>
+            <p>Everything you need for a comfortable Sri Lankan journey.</p>
+        </div>
+
+        <div class="travel-experience">
+
+            <!-- LEFT: TRAVEL SERVICES -->
+            <div class="travel-services-grid">
+
+                <article class="travel-service-card reveal">
+                    <span class="travel-service-number">01</span>
+                    <div class="travel-service-icon">🚘</div>
+                    <h3>Private Transport</h3>
+                    <p>Enjoy comfortable and reliable private transport for every journey.</p>
+                    <a href="#booking">Book a Vehicle <span>→</span></a>
+                </article>
+
+                <article class="travel-service-card reveal">
+                    <span class="travel-service-number">02</span>
+                    <div class="travel-service-icon">🌍</div>
+                    <h3>Tour Packages</h3>
+                    <p>Discover the beauty of Sri Lanka with memorable travel experiences.</p>
+                    <a href="#destinations">Explore Tours <span>→</span></a>
+                </article>
+
+                <article class="travel-service-card reveal">
+                    <span class="travel-service-number">03</span>
+                    <div class="travel-service-icon">🏨</div>
+                    <h3>Hotel Assistance</h3>
+                    <p>Find comfortable accommodation for your Sri Lankan adventure.</p>
+                    <a href="#contact">Enquire Now <span>→</span></a>
+                </article>
+
+                <article class="travel-service-card reveal">
+                    <span class="travel-service-number">04</span>
+                    <div class="travel-service-icon">🎧</div>
+                    <h3>Travel Assistance</h3>
+                    <p>Get friendly support and guidance throughout your journey.</p>
+                    <a href="#contact">Contact Us <span>→</span></a>
+                </article>
+
+            </div>
+
+            <!-- RIGHT: ANIMATED SRI LANKA MAP -->
+            <div class="travel-map-panel reveal">
+
+                <div class="map-top-label">
+                    <span class="map-live-dot"></span>
+                    DISCOVER THE ISLAND
+                </div>
+
+                <div class="map-heading">
+                    <h3>Explore <span>Sri Lanka.</span></h3>
+                    <p>One island. Endless beautiful journeys.</p>
+                </div>
+
+                <div class="map-compass">
+                    <span>N</span>
+                    <div>↑</div>
+                </div>
+
+                <div class="sri-lanka-map">
+
+                    <div class="map-glow"></div>
+
+                    <svg class="map-svg"
+                         viewBox="0 0 400 420"
+                         xmlns="http://www.w3.org/2000/svg"
+                         aria-label="Illustrated map of Sri Lanka with an animated travel car">
+
+                        <defs>
+                            <linearGradient id="islandGradient"
+                                x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#f5cc75"/>
+                                <stop offset="100%" stop-color="#e5aa35"/>
+                            </linearGradient>
+                        </defs>
+
+                        <!-- ISLAND SHADOW -->
+                        <path class="island-shadow"
+                            transform="translate(7 9)"
+                            d="M205 30
+                            C225 43 235 62 247 82
+                            L269 113 278 146
+                            L268 178 284 207
+                            L271 242 253 270
+                            L239 310 219 348
+                            L199 375 180 356
+                            L165 325 145 292
+                            L129 260 119 224
+                            L108 190 119 157
+                            L130 126 148 96
+                            L165 68 184 45 Z"/>
+
+                        <!-- SRI LANKA ISLAND -->
+                        <path class="island-shape"
+                            fill="url(#islandGradient)"
+                            d="M205 30
+                            C225 43 235 62 247 82
+                            L269 113 278 146
+                            L268 178 284 207
+                            L271 242 253 270
+                            L239 310 219 348
+                            L199 375 180 356
+                            L165 325 145 292
+                            L129 260 119 224
+                            L108 190 119 157
+                            L130 126 148 96
+                            L165 68 184 45 Z"/>
+
+                        <!-- TERRAIN DETAILS -->
+                        <path class="map-terrain"
+                            d="M150 145 Q200 170 250 145
+                            M130 210 Q195 235 270 205
+                            M150 275 Q190 300 245 270
+                            M165 110 Q205 125 250 110"/>
+
+                        <!-- TRAVEL ROUTE -->
+                        <path id="travelRoute"
+                            class="map-route-base"
+                            d="M205 75
+                            Q245 110 225 145
+                            Q190 180 145 205
+                            Q170 240 215 255
+                            Q245 285 215 330"/>
+
+                        <path class="map-route"
+                            d="M205 75
+                            Q245 110 225 145
+                            Q190 180 145 205
+                            Q170 240 215 255
+                            Q245 285 215 330"/>
+
+                        <!-- DESTINATION POINTS -->
+                        <g class="map-location">
+                            <circle cx="205" cy="75" r="6"/>
+                        </g>
+
+                        <g class="map-location">
+                            <circle cx="225" cy="145" r="6"/>
+                        </g>
+
+                        <g class="map-location">
+                            <circle cx="145" cy="205" r="6"/>
+                        </g>
+
+                        <g class="map-location">
+                            <circle cx="215" cy="255" r="6"/>
+                        </g>
+
+                        <g class="map-location">
+                            <circle cx="215" cy="330" r="6"/>
+                        </g>
+
+                        <!-- DESTINATION LABELS -->
+                        <g class="map-labels">
+                            <text x="220" y="67">SIGIRIYA</text>
+                            <text x="240" y="140">KANDY</text>
+                            <text x="72" y="200">COLOMBO</text>
+                            <text x="230" y="250">ELLA</text>
+                            <text x="225" y="347">GALLE</text>
+                        </g>
+
+                        <!-- MOVING CAR -->
+                       
+                        <!-- MOVING CAR -->
+                        <g class="map-moving-car">
+                            <text font-size="23"
+                                text-anchor="middle"
+                                dominant-baseline="middle">🚙
+                                <animateMotion
+                                    dur="10s"
+                                    repeatCount="indefinite">
+                                    <mpath href="#travelRoute"/>
+                                </animateMotion>
+                            </text>
+                        </g>
+
+
+                    </svg>
+
+                </div>
+
+                <div class="map-bottom-note">
+                    <span>🌴</span>
+                    <div>
+                        <strong>Your Island Adventure</strong>
+                        <small>Discover. Explore. Experience.</small>
+                    </div>
+                </div>
+
+                <div class="map-footer">
+                    <span><i></i> TRAVEL ROUTE ACTIVE</span>
+                    <strong>SRI LANKA</strong>
+                    
+                </div>
+
+            </div>
+
+        </div>
+
+        
+
+    </div>
+
+</section>
+
+
+
+<!-- DESTINATIONS -->
+<section class="destinations-section section-padding" id="destinations">
+
+    <div class="container">
+
+        <div class="section-heading reveal">
+            <span class="section-label">EXPLORE THE ISLAND</span>
+            <h2>Popular Destinations</h2>
+            <p>Discover the places that make Sri Lanka unforgettable.</p>
+        </div>
+
+        <div class="destination-grid">
+
+            <article class="destination-card destination-sigiriya reveal">
+                <div class="destination-info">
+                    <span>CULTURAL HERITAGE</span>
+                    <h3>Sigiriya</h3>
+                    <p>The iconic Lion Rock.</p>
+                    <a href="#booking">Explore Journey →</a>
+                </div>
+            </article>
+
+            <article class="destination-card destination-ella reveal">
+                <div class="destination-info">
+                    <span>HILL COUNTRY</span>
+                    <h3>Ella</h3>
+                    <p>Mountains, waterfalls and scenic views.</p>
+                    <a href="#booking">Explore Journey →</a>
+                </div>
+            </article>
+
+            <article class="destination-card destination-kandy reveal">
+                <div class="destination-info">
+                    <span>CULTURAL CITY</span>
+                    <h3>Kandy</h3>
+                    <p>Culture and beautiful landscapes.</p>
+                    <a href="#booking">Explore Journey →</a>
+                </div>
+            </article>
+
+            <article class="destination-card destination-galle reveal">
+                <div class="destination-info">
+                    <span>COASTAL ESCAPE</span>
+                    <h3>Galle</h3>
+                    <p>Historic fort and coastal beauty.</p>
+                    <a href="#booking">Explore Journey →</a>
+                </div>
+            </article>
+
+        </div>
+
+        <div class="center-button">
+            <a href="#contact" class="btn btn-navy">
+                Discover More Destinations →
+            </a>
+        </div>
+
+    </div>
+
+</section>
+
+
+
+
+
+<!-- OFFERS -->
+<section class="offers-section section-padding" id="offers">
+
+    <div class="container">
+
+        <div class="offer-banner reveal">
+
+            <div class="offer-content">
+                <span>MAKE YOUR NEXT JOURNEY SPECIAL</span>
+                <h2>Discover More.<br>Experience More.</h2>
+                <p>Ask us about our latest travel offers and customized packages.</p>
+
+                <a href="#booking" class="btn btn-gold">
+                    Enquire About Offers →
+                </a>
+            </div>
+
+            <div class="offer-decoration">✈</div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- CONTACT -->
+<section class="contact-section section-padding" id="contact">
+
+    <div class="container contact-grid">
+
+        <div class="contact-content reveal">
+
+            <span class="section-label">LET'S CONNECT</span>
+
+            <h2>Ready For Your Next Adventure?</h2>
+
+            <p>
+                Have questions about vehicles, destinations or tour packages?
+                Contact our team and let's plan your journey.
+            </p>
+
+            <div class="contact-details">
+
+                <div class="contact-detail">
+                    <span>📍</span>
+                    <div>
+                        <strong>Location</strong>
+                        <p>Sri Lanka</p>
+                    </div>
+                </div>
+
+                <div class="contact-detail">
+                    <span>💬</span>
+                    <div>
+                        <strong>WhatsApp Support</strong>
+                        <p>Contact us for travel enquiries.</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <a
+                href="https://wa.me/94763590094"
+                class="btn btn-gold whatsapp-link"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                Chat With Us on WhatsApp →
+            </a>
+
+        </div>
+
+        <div class="contact-visual reveal">
+            <div class="contact-circle">
+                <span>✈</span>
+                <h3>Let's go on an adventure!</h3>
+                <p>Explore Sri Lanka. Ride With Locals.</p>
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+</main>
+
+
+
+
+<!-- FOOTER -->
+<footer class="footer">
+
+    <div class="container">
+
+        <div class="footer-grid">
+
+            <div class="footer-brand">
+
+                <a href="#home" class="brand footer-logo">
+                    <span class="brand-icon">L</span>
+                    <span class="brand-text">
+                        <strong>LANKIVO</strong>
+                        <small>TRAVELS</small>
+                    </span>
+                </a>
+
+                <p>
+                    Explore Sri Lanka. Ride With Locals.
+                    Your journey, our passion.
+                </p>
+
+            </div>
+
+            <div class="footer-column">
+                <h3>Quick Links</h3>
+                <a href="#home">Home</a>
+                <a href="#about">About Us</a>
+                <a href="#services">Services</a>
+                <a href="#destinations">Destinations</a>
+            </div>
+
+            <div class="footer-column">
+                <h3>Our Services</h3>
+                <a href="#booking">Vehicle Booking</a>
+                <a href="#destinations">Tour Packages</a>
+                <a href="#offers">Special Offers</a>
+                <a href="#contact">Travel Support</a>
+            </div>
+
+            <div class="footer-column">
+                <h3>Connect With Us</h3>
+
+                <a
+                    class="whatsapp-link"
+                    href="https://wa.me/94763590094"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    WhatsApp
+                </a>
+
+                <a href="#" target="_blank">Facebook</a>
+                <a href="#" target="_blank">Instagram</a>
+                <a href="#" target="_blank">YouTube</a>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            <p>© <span id="currentYear"></span> LANKIVO TRAVELS. All Rights Reserved.</p>
+            <p>Designed with ♥ for your journey.</p>
+
+            <p class="developer-credit">
+    Developed by <strong>RAY.TFS</strong>
+</p>
+        </div>
+
+    </div>
+
+</footer>
+
+
+<!-- FLOATING WHATSAPP -->
+<a
+    href="https://wa.me/94763590094"
+    class="floating-whatsapp whatsapp-link"
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label="Chat on WhatsApp"
+>
+    <span>✆</span>
+</a>
+
+
+<!-- BACK TO TOP -->
+<button class="back-to-top" id="backToTop" aria-label="Back to top">
+    ↑
+</button>
+
+<!-- BOOKING SUCCESS NOTIFICATION -->
+<div id="bookingToast" class="booking-toast" role="status" aria-live="polite">
+    <div class="toast-icon">✓</div>
+
+    <div class="toast-content">
+        <h4>WhatsApp Opened!</h4>
+        <p>Your booking enquiry is ready. Please send your message on WhatsApp.</p>
+    </div>
+
+    <button type="button" id="closeToast" aria-label="Close notification">
+        &times;
+    </button>
+
+</div>
+<!-- JAVASCRIPT -->
+<script src="js/main.js"></script>
 </body>
 </html>
